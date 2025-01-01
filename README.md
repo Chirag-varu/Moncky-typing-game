@@ -1,50 +1,129 @@
-# React + TypeScript + Vite
+# Monkey Typing Game
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Monkey Typing Game is a fun and engaging typing game where players can improve their typing skills while competing against time and accuracy. Designed with a playful monkey theme, it challenges players to type words and sentences with speed and precision.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## **Features**
 
-## Expanding the ESLint configuration
+### **Core Features**
+- Multiple difficulty levels: Beginner, Intermediate, Advanced.
+- Real-time feedback on typing accuracy and speed.
+- Score system to track performance.
+- Playful monkey mascot that reacts to player performance.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### **Upcomming Optional Features**
+- Leaderboard for competitive players.
+- Progress tracking for words per minute (WPM) and accuracy.
+- Jungle-themed visuals and animations.
+- Achievements and rewards for milestones.
 
-- Configure the top-level `parserOptions` property like this:
+---
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## **Technologies Used**
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+- **react typescript and taiwiind**
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+---
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+## **Setup Instructions**
+
+### **Prerequisites**
+- Node.js installed on your machine.
+- MongoDB Atlas or a local MongoDB instance.
+
+### **Steps to Run the Project**
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/<your-username>/monkey-typing-game.git
+   ```
+
+2. Navigate to the project directory:
+   ```bash
+   cd monkey-typing-game
+   ```
+
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+4. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+5. Open the application in your browser:
+   - Navigate to `http://localhost:3000`
+
+6. Configure the backend server:
+   - Navigate to the `server` folder:
+     ```bash
+     cd server
+     ```
+   - Install server dependencies:
+     ```bash
+     npm install
+     ```
+   - Add a `.env` file for environment variables, such as MongoDB connection string.
+     Example:
+     ```env
+     PORT=5000
+     MONGO_URI=<your_mongodb_connection_string>
+     ```
+   - Start the backend server:
+     ```bash
+     npm start
+     ```
+
+---
+
+## **How to Play**
+
+1. Choose a difficulty level and timer.
+2. Start typing the words or sentences displayed on the screen.
+3. Aim for high accuracy and speed to score more points.
+4. Check your performance and aim to improve with each round.
+
+---
+
+## **Contributing**
+
+We welcome contributions to enhance Monkey Typing Game! To contribute:
+
+1. Fork the repository.
+2. Create a new branch for your feature:
+   ```bash
+   git checkout -b feature-name
+   ```
+3. Make your changes and commit them:
+   ```bash
+   git commit -m "Add your message here"
+   ```
+4. Push to your forked repository:
+   ```bash
+   git push origin feature-name
+   ```
+5. Open a pull request on the main repository.
+
+---
+
+## **License**
+
+This project is licensed under the [MIT License](LICENSE).
+
+---
+
+## **Acknowledgments**
+
+- Thanks to all contributors and testers.
+- Special thanks to the idea contributors and design inspiration.
+
+---
+
+## **Contact**
+
+For any questions or feedback, please reach out:
+- **Email**: chiragvaru.main@gmail.com
+
