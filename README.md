@@ -51,27 +51,7 @@ Monkey Typing Game is a fun and engaging typing game where players can improve t
    ```
 
 5. Open the application in your browser:
-   - Navigate to `http://localhost:3000`
-
-6. Configure the backend server:
-   - Navigate to the `server` folder:
-     ```bash
-     cd server
-     ```
-   - Install server dependencies:
-     ```bash
-     npm install
-     ```
-   - Add a `.env` file for environment variables, such as MongoDB connection string.
-     Example:
-     ```env
-     PORT=5000
-     MONGO_URI=<your_mongodb_connection_string>
-     ```
-   - Start the backend server:
-     ```bash
-     npm start
-     ```
+   - Navigate to `http://localhost:5001`
 
 ---
 
