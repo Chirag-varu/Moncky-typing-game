@@ -36,7 +36,7 @@ Monkey Typing Game is a fun and engaging typing game where players can improve t
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/<your-username>/monkey-typing-game.git
+   git clone https://github.com/Chirag-varu/monkey-typing-game.git
    ```
 
 2. Navigate to the project directory:
