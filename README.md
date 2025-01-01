@@ -115,13 +115,6 @@ This project is licensed under the [MIT License](LICENSE).
 
 ---
 
-## **Acknowledgments**
-
-- Thanks to all contributors and testers.
-- Special thanks to the idea contributors and design inspiration.
-
----
-
 ## **Contact**
 
 For any questions or feedback, please reach out:
