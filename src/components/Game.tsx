@@ -5,6 +5,7 @@ import TypingArea from './TypingArea'
 import Timer from './Timer'
 import ScoreBoard from './ScoreBoard'
 import MonkeyAnimation from './MonkeyAnimation'
+import { TypewriterEffectSmooth } from "./ui/typewriter-effect";
 import NameInput from './NameInput'
 import { Button } from '@/components/ui/button'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
@@ -21,26 +22,31 @@ export default function Game() {
   const [userInput, setUserInput] = useState('')
   const [score, setScore] = useState(0)
   const [accuracy, setAccuracy] = useState(100)
-  const [initialTime, setInitialTime] = useState(60)
+  const [initialTime, setInitialTime] = useState(30)
   const [timeLeft, setTimeLeft] = useState(initialTime)
   const [isGameActive, setIsGameActive] = useState(false)
   const [monkeyMood, setMonkeyMood] = useState<'happy' | 'sad' | 'neutral'>('neutral')
   const [playerName, setPlayerName] = useState('')
+  const [wpm, setWpm] = useState(0)
+  const [typewriterKey, setTypewriterKey] = useState(0);
+
 
   const startGame = useCallback(() => {
     setIsGameActive(true)
     setScore(0)
     setAccuracy(100)
+    setWpm(0)
     setTimeLeft(initialTime)
     setUserInput('')
     setCurrentText(difficulties[difficulty][Math.floor(Math.random() * difficulties[difficulty].length)])
+    setTypewriterKey(prevKey => prevKey + 1);
   }, [difficulty, initialTime])
 
   const endGame = useCallback(() => {
     setIsGameActive(false)
     setMonkeyMood('neutral')
-    alert(`Game Over! Your score: ${score}, Accuracy: ${accuracy}%`)
-  }, [score, accuracy])
+    alert(`Game Over! Your score: ${score}, Accuracy: ${accuracy}%, WPM: ${wpm}`)
+  }, [score, accuracy, wpm])
 
   useEffect(() => {
     if (isGameActive && timeLeft > 0) {
@@ -51,6 +57,19 @@ export default function Game() {
     }
   }, [timeLeft, isGameActive, endGame])
 
+  const words = [
+    {
+      text: "Monkey",
+    },
+    {
+      text: "Typing",
+    },
+    {
+      text: "Game",
+    },
+  ];
+
+
   const handleInputChange = (input: string) => {
     setUserInput(input)
     const correctChars = input.split('').filter((char, index) => char === currentText[index]).length
@@ -59,16 +78,22 @@ export default function Game() {
     setMonkeyMood(newAccuracy > 80 ? 'happy' : 'sad')
 
     if (input === currentText) {
-      setScore(prevScore => prevScore + 1)
+      setScore(prevScore => prevScore + currentText.length)
       setCurrentText(difficulties[difficulty][Math.floor(Math.random() * difficulties[difficulty].length)])
       setUserInput('')
+
+      // Calculate WPM
+      const elapsedMinutes = (initialTime - timeLeft) / 60
+      const wordsTyped = score / 5 // Assuming an average word length of 5 characters
+      const newWpm = Math.round(wordsTyped / elapsedMinutes) || 0
+      setWpm(newWpm)
     }
   }
 
   if (!playerName) {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-yellow-100 to-yellow-300 p-4">
-        <h1 className="text-4xl font-bold mb-8 text-brown-600">Monkey Typing Game</h1>
+        <TypewriterEffectSmooth key={typewriterKey} words={words} />
         <NameInput onNameSubmit={setPlayerName} />
       </div>
     )
@@ -76,27 +101,30 @@ export default function Game() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-yellow-100 to-yellow-300 p-4">
-      <h1 className="text-4xl font-bold mb-8 text-brown-600">Monkey Typing Game</h1>
+      <TypewriterEffectSmooth words={words} />
       <div className="w-full max-w-2xl bg-white rounded-lg shadow-lg p-8">
         <div className="flex flex-col gap-4 mb-4">
           <div className="flex justify-between items-center">
-            <Select onValueChange={(value: 'beginner' | 'intermediate' | 'advanced') => setDifficulty(value)}>
-              <SelectTrigger className="w-[180px]">
-                <SelectValue placeholder="Select difficulty" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="beginner">Beginner</SelectItem>
-                <SelectItem value="intermediate">Intermediate</SelectItem>
-                <SelectItem value="advanced">Advanced</SelectItem>
-              </SelectContent>
-            </Select>
+            <div className='flex items-center gap-4'>
+              <span className="text-sm font-medium">Set difficulty:</span>
+              <Select value={difficulty} onValueChange={(value: 'beginner' | 'intermediate' | 'advanced') => setDifficulty(value)}>
+                <SelectTrigger className="w-[180px]">
+                  <SelectValue placeholder="Select difficulty" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="beginner">Beginner</SelectItem>
+                  <SelectItem value="intermediate">Intermediate</SelectItem>
+                  <SelectItem value="advanced">Advanced</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
             <Button onClick={startGame} disabled={isGameActive}>
               Start Game
             </Button>
           </div>
           <div className="flex items-center gap-4">
             <span className="text-sm font-medium">Set Timer:</span>
-            <Select onValueChange={(value) => setInitialTime(parseInt(value))} disabled={isGameActive}>
+            <Select value={String(initialTime)} onValueChange={(value) => setInitialTime(parseInt(value))} disabled={isGameActive}>
               <SelectTrigger className="w-[180px]">
                 <SelectValue placeholder="Select time" />
               </SelectTrigger>
@@ -120,9 +148,12 @@ export default function Game() {
         />
         <div className="flex justify-between items-center mt-4">
           <Timer timeLeft={timeLeft} />
-          <ScoreBoard score={score} accuracy={accuracy} />
+          <ScoreBoard score={score} accuracy={accuracy} wpm={wpm} />
         </div>
       </div>
+      {/* <div className="text-xl font-bold mb-4 mt-4">
+        <span>Welcome, {playerName}</span>
+      </div> */}
     </div>
   )
 }

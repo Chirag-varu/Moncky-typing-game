@@ -12,7 +12,7 @@ export default function NameInput({ onNameSubmit }: NameInputProps) {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     if (name.trim()) {
-      onNameSubmit(name.trim())
+      return onNameSubmit(name.trim())
     }
   }
 
