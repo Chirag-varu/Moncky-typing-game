@@ -28,10 +28,6 @@ Monkey Typing Game is a fun and engaging typing game where players can improve t
 
 ## **Setup Instructions**
 
-### **Prerequisites**
-- Node.js installed on your machine.
-- MongoDB Atlas or a local MongoDB instance.
-
 ### **Steps to Run the Project**
 
 1. Clone the repository:
